@@ -35,10 +35,10 @@ const newUpload = (req, res, next) => {
       res.status(201).json({ secure_url: data.secure_url });
 
       //  res.json({ url: result.Location });
-      return next();
+      
     })
     .catch((err) => {
-      console.log('Error', err);
+      console.log('ErroRR', err);
       return next(new HttpError(err, err.statusCode));
     });
 };
