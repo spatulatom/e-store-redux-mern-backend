@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json());
 
-app.use('/uploads/images', express.static(path.join('uploads', 'images')));
+// app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
