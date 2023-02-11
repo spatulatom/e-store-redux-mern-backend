@@ -54,4 +54,4 @@ const newUpload = (req, res, next) => {
     //   return next(error);
   });
 };
-export default newUpload;
+
