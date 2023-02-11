@@ -24,16 +24,11 @@ const newUpload = async (req, res, next) => {
     );
     return next(error);
   }
-  // response
-
-  //   .then((data) => {
-  //     console.log('Cloudinary response', data);
-  //     console.log(data.secure_url);
 
   fs.unlink(req.file.path, (err) => {
     //  its not crucial so we wont stop the execution if insuccessfull
     console.log(err);
-    
+
     //   const error = new HttpError(
     //     'Could not unlink the file.',
     //     500
@@ -41,14 +36,7 @@ const newUpload = async (req, res, next) => {
     //   return next(error);
   });
 
-  console.log('response', response)
+  console.log('response', response);
   res.status(201).json({ secure_url: response.secure_url });
-
-  //  res.json({ url: result.Location });
-  // })
-  // .catch((err) => {
-  //   console.log('ErroRR', err);
-  //   return next(new HttpError(err, err.statusCode));
-  // });
 };
 export default newUpload;
