@@ -22,16 +22,16 @@ const newUpload = (req, res, next) => {
       console.log('Cloudinary response', data);
       console.log(data.secure_url);
 
-      fs.unlink(req.file.path, (err) => {
-        //  its not crucial so we wont stop the execution if insuccessfull
-        console.log(err);
-        return;
-        //   const error = new HttpError(
-        //     'Could not unlink the file.',
-        //     500
-        //   );
-        //   return next(error);
-      });
+      // fs.unlink(req.file.path, (err) => {
+      //   //  its not crucial so we wont stop the execution if insuccessfull
+      //   console.log(err);
+      //   return;
+      //   //   const error = new HttpError(
+      //   //     'Could not unlink the file.',
+      //   //     500
+      //   //   );
+      //   //   return next(error);
+      // });
       res.status(201).json({ secure_url: data.secure_url });
 
       //  res.json({ url: result.Location });
