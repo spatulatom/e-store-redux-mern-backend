@@ -4,7 +4,7 @@ import newUpload from '../controllers/upload-cloudinary.js';
 
 
 const uploadRouter = express.Router();
-uploadRouter.post('/', isAuth, isAdmin, newUpload
+uploadRouter.post('/', isAuth, isAdmin, fileUpload.single('file'), newUpload
 );
 
 export default uploadRouter;

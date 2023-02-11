@@ -14,7 +14,7 @@ const newUpload = async (req, res, next) => {
   let response;
   try {
     console.log('here');
-    response = await cloudinary.uploader.upload('https://eventsbook22.s3.eu-west-3.amazonaws.com/992d717a-6204-42c1-b439-b5729d54d5ab', {
+    response = await cloudinary.uploader.upload(req.file.path, {
       public_id: crypto.randomUUID(),
     });
   } catch (err) {
@@ -40,6 +40,8 @@ const newUpload = async (req, res, next) => {
   //   //   );
   //   //   return next(error);
   // });
+
+  console.log('response', response)
   res.status(201).json({ secure_url: response.secure_url });
 
   //  res.json({ url: result.Location });
