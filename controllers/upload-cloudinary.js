@@ -2,7 +2,7 @@ import fs from 'fs';
 import crypto from 'crypto';
 import cloudinary from 'cloudinary';
 
-const newUpload = (req, res, next) => {
+const newUpload = async(req, res, next) => {
   // Configuration
   cloudinary.v2.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -11,16 +11,24 @@ const newUpload = (req, res, next) => {
   });
 
   //  see familija repository for Amazon web Services S3 bucket connection
+  let response;
+  try {
+    console.log('here');
+   response = await cloudinary.uploader.upload(req.file.path, {
+      public_id: crypto.randomUUID(),
+    });
+  } catch (err) {
+    const error = new HttpError(
+      'Creating new post failed, server error, please try again in a minute.',
+      500
+    );
+    return next(error);
+  }
+  // response
 
-  console.log('here');
-  const response = cloudinary.uploader.upload(req.file.path, {
-    public_id: crypto.randomUUID(),
-  });
-  response
-
-    .then(async (data) => {
-      console.log('Cloudinary response', data);
-      console.log(data.secure_url);
+  //   .then((data) => {
+  //     console.log('Cloudinary response', data);
+  //     console.log(data.secure_url);
 
       // fs.unlink(req.file.path, (err) => {
       //   //  its not crucial so we wont stop the execution if insuccessfull
@@ -32,14 +40,13 @@ const newUpload = (req, res, next) => {
       //   //   );
       //   //   return next(error);
       // });
-      res.status(201).json({ secure_url: data.secure_url });
+      res.status(201).json({ secure_url: response.secure_url });
 
       //  res.json({ url: result.Location });
-      
-    })
-    .catch((err) => {
-      console.log('ErroRR', err);
-      return next(new HttpError(err, err.statusCode));
-    });
+    // })
+    // .catch((err) => {
+    //   console.log('ErroRR', err);
+    //   return next(new HttpError(err, err.statusCode));
+    // });
 };
 export default newUpload;
