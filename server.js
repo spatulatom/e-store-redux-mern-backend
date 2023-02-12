@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  if(req.file.path){
+  if(req.file){
     console.log('delete')
     fs.unlink(req.file.path, (err) => {
       
