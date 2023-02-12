@@ -17,7 +17,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // this line below is only needed if we sore images on the server to grand their accecc
-app.use(express.static(path.resolve(process.cwd(), '/uploads/images')));
+app.use('/uploads/images', express.static(path.join('uploads', 'images')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
