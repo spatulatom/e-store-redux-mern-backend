@@ -18,16 +18,13 @@ const newUpload = async (req, res, next) => {
   try {
     console.log('here2');
     response = await cloudinary.uploader.upload(req.file.path, {
-      public_id: uuid(),
+      public_id: Date.now(),
     });
     deletePicture = true;
   } catch (err) {
-     error = new HttpError(
-      'Connection to Cloudinary failed, please try again in a minute.',
-      500
-    );
+    console.log(err)
     deletePicture = true;
-    return next(error);
+    return next(err);
   }
   if(deletePicture){
     console.log('here5')
