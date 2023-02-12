@@ -11,7 +11,7 @@ const newUpload = async (req, res, next) => {
     api_secret: process.env.CLOUD_SECRET,
   });
 
-  let buffer = fs.readFileSync(req.file.path)
+  // let buffer = fs.readFileSync(req.file.path)
 
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
