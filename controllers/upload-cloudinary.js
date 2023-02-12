@@ -13,20 +13,21 @@ const newUpload = async (req, res, next) => {
 
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
+  let error;
   try {
     console.log('here');
     response = await cloudinary.uploader.upload(req.file.path, {
       public_id: crypto.randomUUID(),
     });
   } catch (err) {
-    const error = new HttpError(
+     error = new HttpError(
       'Creating new post failed, server error, please try again in a minute.',
       500
     );
     return next(error);
   }
-
-   fsPromises.unlink(req.file.path, (err) => {
+if(response || error){
+   fs.unlink(req.file.path, (err) => {
     //  its not crucial so we wont stop the execution if insuccessfull
     console.log(err);
 
@@ -35,7 +36,7 @@ const newUpload = async (req, res, next) => {
     //     500
     //   );
     //   return next(error);
-  });
+  });}
 
   console.log('response', response);
   res.status(201).json({ secure_url: response.secure_url });
