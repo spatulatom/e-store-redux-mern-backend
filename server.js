@@ -9,6 +9,7 @@ import userRouter from './routers/userRouter.js';
 import orderRouter from './routers/orderRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import bodyParser from 'body-parser';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -56,6 +57,14 @@ app.get('/', (req, res) => {
 });
 
 app.use((err, req, res, next) => {
+  if(req.file.path){
+    console.log('delete')
+    fs.unlink(req.file.path, (err) => {
+      
+      console.log(err);
+      
+    })
+  }
   console.log('ERROR', err);
   res.status(500).send({ message: err });
 });
