@@ -150,7 +150,7 @@ export const fileUpload = multer({
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
       // cb(null, new Date().toISOString().replace(/:/g, '-') +'.'+ ext);
-      cb(null, new Date().toISOString().replace(/:/g, '-'));
+      cb(null, Date.now().toString());
     }
   }),
   fileFilter: (req, file, cb) => {
