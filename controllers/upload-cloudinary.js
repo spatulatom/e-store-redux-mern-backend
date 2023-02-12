@@ -11,13 +11,15 @@ const newUpload = async (req, res, next) => {
     api_secret: process.env.CLOUD_SECRET,
   });
 
+  let buffer = fs.readFileSync(req.file.path)
+
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
   let error;
   let deletePicture = false;
   try {
     console.log('here2');
-    response = await cloudinary.uploader.upload(process.env.URL + req.file.path, {
+    response = await cloudinary.uploader.upload(req.file.path, {resource_type: "raw",
       public_id: Date.now(),
     });
     deletePicture = true;

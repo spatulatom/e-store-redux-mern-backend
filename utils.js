@@ -145,7 +145,7 @@ export const fileUpload = multer({
     
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, path.join('uploads/images'));
+      cb(null, path.resolve(process.cwd(),'uploads/images'));
     },
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
