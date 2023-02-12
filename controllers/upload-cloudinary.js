@@ -1,6 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 import cloudinary from 'cloudinary';
+import fsPromises from 'fs'
 
 const newUpload = async (req, res, next) => {
   // Configuration
@@ -25,7 +26,7 @@ const newUpload = async (req, res, next) => {
     return next(error);
   }
 
-  fs.unlink(req.file.path, (err) => {
+   fsPromises.unlink(req.file.path, (err) => {
     //  its not crucial so we wont stop the execution if insuccessfull
     console.log(err);
 
