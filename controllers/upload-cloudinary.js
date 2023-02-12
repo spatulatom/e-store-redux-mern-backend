@@ -5,7 +5,7 @@ import path from 'path';
 
 const newUpload = async (req, res, next) => {
   // Configuration
-  cloudinary.v2.config({
+  cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.CLOUD_KEY,
     api_secret: process.env.CLOUD_SECRET,
@@ -14,27 +14,34 @@ const newUpload = async (req, res, next) => {
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
   let error;
-  const url = path.join(req.file.path)
+  let deletePicture = false;
   try {
-    console.log('here');
-    response = await cloudinary.uploader.upload(url, {resource_type: "raw",
-      public_id: new Date(),
+    console.log('here2');
+    response = await cloudinary.uploader.upload(req.file.path, {
+      public_id: uuid(),
     });
+    deletePicture = true;
   } catch (err) {
-    error = err;
-    return next(err);
+     error = new HttpError(
+      'Connection to Cloudinary failed, please try again in a minute.',
+      500
+    );
+    deletePicture = true;
+    return next(error);
   }
-  try {
-    console.log('here 2')
-    fs.unlink(url, (err) => {
+  if(deletePicture){
+    console.log('here5')
+    fs.unlink(req.file.path, (err) => {
       //  its not crucial so we wont stop the execution if insuccessfull
       console.log(err);
-    });
-  } catch (err) {}
-  
-  
+      //   const error = new HttpError(
+      //     'Could not unlink the file.',
+      //     500
+      //   );
+      //   return next(error);
+    });}
 
-  console.log('response', response);
+  console.log('here 3', response);
   res.status(201).json({ secure_url: response.secure_url });
 };
 export default newUpload;
