@@ -1,7 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 import cloudinary from 'cloudinary';
-import path from 'path';
+
 
 const newUpload = async (req, res, next) => {
   // Configuration
@@ -19,7 +19,7 @@ const newUpload = async (req, res, next) => {
   let deletePicture = false;
   try {
     console.log('here2');
-    response = await cloudinary.uploader.upload(req.file.path, {resource_type: "raw",
+    response = await cloudinary.uploader.upload(req.file.path, {resource_type: "image",
       public_id: Date.now(),
     });
     deletePicture = true;
