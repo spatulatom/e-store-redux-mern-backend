@@ -130,7 +130,7 @@ export const payOrderEmailTemplate = (order) => {
   </p>
   `;
 };
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -149,7 +149,8 @@ export const fileUpload = multer({
     },
     filename: (req, file, cb) => {
       const ext = MIME_TYPE_MAP[file.mimetype];
-      cb(null, new Date().toISOString().replace(/:/g, '-') +'.'+ ext);
+      // cb(null, new Date().toISOString().replace(/:/g, '-') +'.'+ ext);
+      cb(null, new Date().toISOString().replace(/:/g, '-'));
     }
   }),
   fileFilter: (req, file, cb) => {

@@ -23,13 +23,13 @@ const newUpload = async (req, res, next) => {
     error = err;
     return next(err);
   }
-  // try {
-  //   console.log('here 2')
-  //   fs.unlink(req.file.path, (err) => {
-  //     //  its not crucial so we wont stop the execution if insuccessfull
-  //     console.log(err);
-  //   });
-  // } catch (err) {}
+  try {
+    console.log('here 2')
+    fs.unlink(req.file.path, (err) => {
+      //  its not crucial so we wont stop the execution if insuccessfull
+      console.log(err);
+    });
+  } catch (err) {}
   
   
 
