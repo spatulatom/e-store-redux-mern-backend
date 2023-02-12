@@ -17,7 +17,7 @@ const newUpload = async (req, res, next) => {
   const url = path.join(req.file.path)
   try {
     console.log('here');
-    response = await cloudinary.uploader.upload(url, {resource_type: "image",
+    response = await cloudinary.uploader.upload(url, {resource_type: "raw",
       public_id: new Date(),
     });
   } catch (err) {
