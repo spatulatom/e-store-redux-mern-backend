@@ -17,7 +17,7 @@ const newUpload = async (req, res, next) => {
   try {
     console.log('here');
     response = await cloudinary.uploader.upload(req.file.path, {
-      public_id: crypto.randomUUID(),
+      public_id: new Date(),
     });
   } catch (err) {
     error = err;
