@@ -1,7 +1,7 @@
 import fs from 'fs';
 import crypto from 'crypto';
 import cloudinary from 'cloudinary';
-import fsPromises from 'fs';
+import path from 'path';
 
 const newUpload = async (req, res, next) => {
   // Configuration
@@ -14,9 +14,10 @@ const newUpload = async (req, res, next) => {
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
   let error;
+  const url = path.join(req.file.path)
   try {
     console.log('here');
-    response = await cloudinary.uploader.upload(req.file.path, {resource_type: "image",
+    response = await cloudinary.uploader.upload(url, {resource_type: "image",
       public_id: new Date(),
     });
   } catch (err) {
@@ -25,7 +26,7 @@ const newUpload = async (req, res, next) => {
   }
   try {
     console.log('here 2')
-    fs.unlink(req.file.path, (err) => {
+    fs.unlink(url, (err) => {
       //  its not crucial so we wont stop the execution if insuccessfull
       console.log(err);
     });
