@@ -16,7 +16,7 @@ const newUpload = async (req, res, next) => {
   let error;
   try {
     console.log('here');
-    response = await cloudinary.uploader.upload(req.file.path, {
+    response = await cloudinary.uploader.upload(req.file.path, {resource_type: "image",
       public_id: new Date(),
     });
   } catch (err) {
