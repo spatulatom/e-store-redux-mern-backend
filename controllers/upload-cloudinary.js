@@ -17,7 +17,7 @@ const newUpload = async (req, res, next) => {
   let deletePicture = false;
   try {
     console.log('here2');
-    response = await cloudinary.uploader.upload(req.file.path, {
+    response = await cloudinary.uploader.upload(process.env.URL + req.file.path, {
       public_id: Date.now(),
     });
     deletePicture = true;
