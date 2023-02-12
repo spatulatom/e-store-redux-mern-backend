@@ -13,20 +13,22 @@ const newUpload = async (req, res, next) => {
 
   //  see familija repository for Amazon web Services S3 bucket connection
   let response;
-  let error;
+  let unlinkImage = false;
   try {
     console.log('here');
     response = await cloudinary.uploader.upload(req.file.path, {
       public_id: crypto.randomUUID(),
     });
+    unlinkImage = true;
   } catch (err) {
-     error = new HttpError(
+   const  error = new HttpError(
       'Creating new post failed, server error, please try again in a minute.',
       500
     );
+    unlinkImage = true;
     return next(error);
   }
-if(response || error){
+if(unlinkImage){
    fs.unlink(req.file.path, (err) => {
     //  its not crucial so we wont stop the execution if insuccessfull
     console.log(err);
