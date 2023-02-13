@@ -1,6 +1,8 @@
 import fs from 'fs';
 import uploadcare from 'uploadcare';
 import { UploadClient } from '@uploadcare/upload-client';
+import path from 'path';
+
 
 const newUpload = async (req, res, next) => {
   // Configuration
@@ -9,12 +11,13 @@ const newUpload = async (req, res, next) => {
 
   let response;
   let url;
+  const type = {contentType: 'image/jpeg'};
   try {
     console.log('here2');
-    response = await client.uploadFile(buffer);
+    response = await client.uploadFile(buffer, type);
     url = response.uuid;
 
-    console.log('URL', url);
+    console.log('URL', response);
   } catch (err) {
     console.log('TUTAJ', err);
 
@@ -36,7 +39,7 @@ const newUpload = async (req, res, next) => {
   res
     .status(201)
     .json({
-      secure_url: 'https://ucarecdn.com/' + url,
+      secure_url: 'https://ucarecdn.com/' + url + '/'
     });
 };
 export default newUpload;
