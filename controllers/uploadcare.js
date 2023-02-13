@@ -16,7 +16,7 @@ const newUpload = async (req, res, next) => {
 
     console.log('URL', url);
   } catch (err) {
-    console.log(err);
+    console.log('TUTAJ', err);
     
     return next(err);
   }
