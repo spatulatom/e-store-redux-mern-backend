@@ -36,7 +36,7 @@ const newUpload = async (req, res, next) => {
   res
     .status(201)
     .json({
-      secure_url: 'https:/0d023a6641558920d004.ucr.io/ucarecdn.com/' + url,
+      secure_url: 'https://ucarecdn.com/' + url,
     });
 };
 export default newUpload;
