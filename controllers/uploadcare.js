@@ -3,6 +3,10 @@ import uploadcare from 'uploadcare';
 import { UploadClient } from '@uploadcare/upload-client';
 import path from 'path';
 
+// Resources:
+// https://github.com/uploadcare/uploadcare-js-api-clients/blob/master/packages/upload-client/README.md
+// https://uploadcare.com/community/t/setting-correct-content-type-for-images/716/4
+
 
 const newUpload = async (req, res, next) => {
   // Configuration
@@ -11,6 +15,8 @@ const newUpload = async (req, res, next) => {
 
   let response;
   let url;
+  // this config here is a guess inspired by second resource above, default type is 
+  // contenttype: application/octet-stream and it dosent display on the front end
   const type = {contentType: 'image/jpeg'};
   try {
     console.log('here2');
